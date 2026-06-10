@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.local
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+server/*.log
+client/*.log
