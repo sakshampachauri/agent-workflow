@@ -42,6 +42,11 @@ server/
     validators/      Zod payload validation
 docs/
   AI_AGENT_WORKFLOW.md
+agents/
+  architect.md
+  frontend.md
+  backend.md
+  deployment.md
 ```
 
 ## Setup
@@ -165,4 +170,4 @@ Validation is handled on the API boundary with Zod and at persistence level with
 
 ## AI-Agent Development Process
 
-The repository includes `docs/AI_AGENT_WORKFLOW.md`, which describes how to split this assignment across AI-assisted product, backend, frontend, QA, and documentation agents while keeping handoffs explicit.
+The repository includes `docs/AI_AGENT_WORKFLOW.md` and the `agents/` folder, which describe how to split this assignment across AI-assisted Architect, Frontend, Backend, and Deployment agents while keeping handoffs explicit.
