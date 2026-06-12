@@ -31,14 +31,9 @@ const createStep = (type: StepType = 'textTransform'): WorkflowStep => ({
 
 const emptyDraft = () => ({
   id: '',
-  name: 'Customer onboarding workflow',
-  description: 'Clean input, validate eligibility, enrich with mock API data, and prepare final output.',
-  steps: [
-    createStep('textTransform'),
-    createStep('condition'),
-    createStep('mockApiCall'),
-    createStep('finalOutput')
-  ] as WorkflowStep[]
+  name: '',
+  description: '',
+  steps: [createStep('textTransform')] as WorkflowStep[]
 });
 
 function formatValue(value: unknown) {
@@ -84,6 +79,13 @@ export function App() {
     });
     setExecution(null);
     loadHistory(workflow._id).catch((error) => setMessage(error.message));
+  }
+
+  function startNewWorkflow() {
+    setDraft(emptyDraft());
+    setExecution(null);
+    setHistory([]);
+    setMessage('');
   }
 
   function updateStep(index: number, nextStep: WorkflowStep) {
@@ -170,7 +172,7 @@ export function App() {
       <aside className="sidebar">
         <div className="brand">
           <span>FlowForge</span>
-          <button type="button" onClick={() => setDraft(emptyDraft())}>
+          <button type="button" onClick={startNewWorkflow}>
             <Plus size={16} /> New
           </button>
         </div>
