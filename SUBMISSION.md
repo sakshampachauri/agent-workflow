@@ -5,7 +5,7 @@
 - [x] Client audit passes (0 vulnerabilities)
 - [x] Client production build passes
 - [x] README setup steps verified
-- [ ] Git remote configured (Awaiting URL)
+- [x] Git remote configured (https://github.com/sakshampachauri/agent-workflow.git)
 - [x] .env.example files created and documented
 - [x] Docker Compose MongoDB service verified
 
