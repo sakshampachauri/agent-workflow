@@ -4,7 +4,16 @@ const stepConfig = z.record(z.any()).default({});
 
 const workflowStepSchema = z.object({
   _id: z.string().optional(),
-  type: z.enum(['textTransform', 'delay', 'condition', 'mockApiCall', 'finalOutput']),
+  type: z.enum([
+    'textTransform',
+    'delay',
+    'condition',
+    'mockApiCall',
+    'jsonExtract',
+    'dataValidation',
+    'webhook',
+    'finalOutput'
+  ]),
   label: z.string().trim().min(1, 'Step label is required').max(100),
   config: stepConfig
 });

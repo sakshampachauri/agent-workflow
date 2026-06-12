@@ -1,4 +1,12 @@
-export type StepType = 'textTransform' | 'delay' | 'condition' | 'mockApiCall' | 'finalOutput';
+export type StepType =
+  | 'textTransform'
+  | 'delay'
+  | 'condition'
+  | 'mockApiCall'
+  | 'jsonExtract'
+  | 'dataValidation'
+  | 'webhook'
+  | 'finalOutput';
 
 export type WorkflowStep = {
   _id?: string;

@@ -11,6 +11,9 @@ A full-stack MERN workflow automation platform for creating, editing, saving, ex
   - Delay/wait
   - Conditional check
   - Mock API call
+  - JSON field extract
+  - Data validation
+  - Webhook / real API call
   - Final output
 - Persist workflow definitions in MongoDB.
 - Execute workflows step by step with intermediate and final output.
@@ -125,7 +128,15 @@ GET    /api/workflows/:id/executions
   name: string;
   description: string;
   steps: Array<{
-    type: 'textTransform' | 'delay' | 'condition' | 'mockApiCall' | 'finalOutput';
+    type:
+      | 'textTransform'
+      | 'delay'
+      | 'condition'
+      | 'mockApiCall'
+      | 'jsonExtract'
+      | 'dataValidation'
+      | 'webhook'
+      | 'finalOutput';
     label: string;
     config: Record<string, unknown>;
   }>;
@@ -164,7 +175,7 @@ Validation is handled on the API boundary with Zod and at persistence level with
 ## Assumptions
 
 - Authentication is intentionally out of scope for the 24-hour assignment.
-- Mock API calls are deterministic local simulated responses, not external network calls.
+- Mock API calls are deterministic local simulated responses. Webhook steps can call configured external URLs.
 - Delay steps are capped at 5 seconds to avoid accidental long-running requests.
 - Conditional failure stops the workflow unless `continueOnFail` is enabled.
 

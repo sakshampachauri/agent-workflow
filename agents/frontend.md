@@ -9,6 +9,7 @@ Build a clean React interface for creating, editing, running, and reviewing work
 - Implement the workflow list and selection experience.
 - Build the workflow editor for name, description, and ordered steps.
 - Provide controls for each supported step type.
+- Provide controls for extended steps such as JSON field extraction, validation rules, and webhook/API calls.
 - Build execution input, run action, intermediate results, final output, and history views.
 - Keep the UI responsive, readable, and easy to evaluate quickly.
 
@@ -43,6 +44,7 @@ Build a clean React interface for creating, editing, running, and reviewing work
 - User can execute saved workflows with custom input.
 - User can view intermediate step output and final output.
 - User can review recent execution history.
+- User can configure advanced steps without editing JSON by hand.
 
 ## Handoff Checklist
 

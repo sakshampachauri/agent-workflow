@@ -4,7 +4,16 @@ const workflowStepSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ['textTransform', 'delay', 'condition', 'mockApiCall', 'finalOutput'],
+      enum: [
+        'textTransform',
+        'delay',
+        'condition',
+        'mockApiCall',
+        'jsonExtract',
+        'dataValidation',
+        'webhook',
+        'finalOutput'
+      ],
       required: true
     },
     label: {

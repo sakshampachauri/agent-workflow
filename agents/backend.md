@@ -9,6 +9,7 @@ Build the Node.js, Express, and MongoDB backend for workflow persistence, valida
 - Define Mongoose models for workflows and executions.
 - Implement REST APIs for workflow CRUD operations.
 - Implement workflow execution by ordered steps.
+- Support extensible step handlers such as JSON extraction, validation, and webhook/API calls.
 - Validate API payloads.
 - Store execution history.
 - Keep controllers, routes, models, validation, and execution logic separated.
@@ -61,6 +62,7 @@ Each step handler receives the current input and step config, then returns:
 - Each step result includes status, input, output, message, and duration.
 - Execution history is persisted.
 - Unsupported or failed steps return structured errors.
+- New step types can be added by extending the enum list and adding a step handler.
 
 ## Handoff Checklist
 

@@ -8,6 +8,9 @@ const stepLabels: Record<StepType, string> = {
   delay: 'Delay',
   condition: 'Condition',
   mockApiCall: 'Mock API call',
+  jsonExtract: 'JSON field extract',
+  dataValidation: 'Data validation',
+  webhook: 'Webhook / API call',
   finalOutput: 'Final output'
 };
 
@@ -26,7 +29,13 @@ const createStep = (type: StepType = 'textTransform'): WorkflowStep => ({
           ? { operator: 'contains', value: 'APPROVED', continueOnFail: false }
           : type === 'mockApiCall'
             ? { endpoint: '/mock/customer-profile', method: 'GET' }
-            : { prefix: 'Result' }
+            : type === 'jsonExtract'
+              ? { path: 'user.email', defaultValue: '' }
+              : type === 'dataValidation'
+                ? { path: 'user.email', rule: 'email', expected: '', continueOnFail: false }
+                : type === 'webhook'
+                  ? { url: 'https://httpbin.org/post', method: 'POST', timeoutMs: 5000 }
+                  : { prefix: 'Result' }
 });
 
 const emptyDraft = () => ({
@@ -412,6 +421,104 @@ function StepEditor({
               <input
                 value={String(step.config.endpoint || '')}
                 onChange={(event) => updateConfig('endpoint', event.target.value)}
+              />
+            </label>
+          </>
+        )}
+
+        {step.type === 'jsonExtract' && (
+          <>
+            <label>
+              Field path
+              <input
+                placeholder="user.email"
+                value={String(step.config.path || '')}
+                onChange={(event) => updateConfig('path', event.target.value)}
+              />
+            </label>
+            <label>
+              Default value
+              <input
+                value={String(step.config.defaultValue || '')}
+                onChange={(event) => updateConfig('defaultValue', event.target.value)}
+              />
+            </label>
+          </>
+        )}
+
+        {step.type === 'dataValidation' && (
+          <>
+            <label>
+              Field path
+              <input
+                placeholder="Leave blank to validate current input"
+                value={String(step.config.path || '')}
+                onChange={(event) => updateConfig('path', event.target.value)}
+              />
+            </label>
+            <label>
+              Rule
+              <select
+                value={String(step.config.rule || 'required')}
+                onChange={(event) => updateConfig('rule', event.target.value)}
+              >
+                <option value="required">Required</option>
+                <option value="email">Email</option>
+                <option value="minLength">Minimum length</option>
+                <option value="maxLength">Maximum length</option>
+                <option value="equals">Equals</option>
+                <option value="greaterThan">Greater than</option>
+                <option value="lessThan">Less than</option>
+              </select>
+            </label>
+            <label>
+              Expected value
+              <input
+                value={String(step.config.expected || '')}
+                onChange={(event) => updateConfig('expected', event.target.value)}
+              />
+            </label>
+            <label className="checkbox-row">
+              <input
+                checked={Boolean(step.config.continueOnFail)}
+                type="checkbox"
+                onChange={(event) => updateConfig('continueOnFail', event.target.checked)}
+              />
+              Continue if invalid
+            </label>
+          </>
+        )}
+
+        {step.type === 'webhook' && (
+          <>
+            <label>
+              Method
+              <select
+                value={String(step.config.method || 'POST')}
+                onChange={(event) => updateConfig('method', event.target.value)}
+              >
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="PATCH">PATCH</option>
+              </select>
+            </label>
+            <label>
+              URL
+              <input
+                placeholder="https://api.example.com/webhook"
+                value={String(step.config.url || '')}
+                onChange={(event) => updateConfig('url', event.target.value)}
+              />
+            </label>
+            <label>
+              Timeout milliseconds
+              <input
+                min="1000"
+                max="15000"
+                type="number"
+                value={Number(step.config.timeoutMs || 5000)}
+                onChange={(event) => updateConfig('timeoutMs', Number(event.target.value))}
               />
             </label>
           </>
